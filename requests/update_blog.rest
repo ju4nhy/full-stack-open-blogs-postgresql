@@ -5,5 +5,5 @@ Content-Type: application/json
     "author": "juanhy", 
     "url": "http://tba.tba",
     "title": "Test Blog",
-    "likes": 1
+    "likes": 3
 }
