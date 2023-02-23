@@ -1,3 +1,5 @@
+/* ORIGINAL INDEX.JS, NOT USED ANYMORE */
+
 require('dotenv').config()
 const { Sequelize, Model, DataTypes } = require('sequelize')
 const express = require('express')
