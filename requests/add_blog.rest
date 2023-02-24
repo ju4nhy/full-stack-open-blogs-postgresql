@@ -1,8 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldnNraSIsImlkIjo3LCJpYXQiOjE2NzcxNTc3ODJ9.yQzSkP8T5Xub09MU7dZrfHSO1GzLSwal0x5LZG5_IsQ
 
 {
-    "author": "juanhy", 
-    "url": "http://test.jest",
-    "title": "Test Blog"
+    "author": "nevski", 
+    "url": "http://historyispassion",
+    "title": "History is my passion"
 }
