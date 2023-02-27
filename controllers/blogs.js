@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
       attributes: ['name']
     }
   })
-  // console.log(JSON.stringify(blogs, null, 2))   CAN BE REMOVED MBY?
   res.json(blogs)
 })
   
@@ -39,17 +38,25 @@ router.post('/', blogFinder, async (req, res) => {
 })
 */
 
-router.post('/', middleware.tokenExtractor, async (req, res) => {
+router.post('/', middleware.tokenExtractor, middleware.userExtractor, async (req, res) => {
     console.log(req.body)
     const user = await User.findByPk(req.decodedToken.id)
     const blog = await Blog.create({ ...req.body, userId: user.id })
     return res.json(blog)
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
+router.delete('/:id', blogFinder, middleware.tokenExtractor, middleware.userExtractor, async (req, res) => {
+  if (!req.decodedToken || !req.decodedToken.id) {
+    return res.status(401).json({ error: 'Token missing or invalid' })
+  }
+
   if (req.blog) {
-    await req.blog.destroy()
-    res.status(204).end()
+    if (req.decodedToken.id === req.blog.userId) {
+      await req.blog.destroy()
+      res.status(204).end()
+    } else {
+      res.status(401).json({ error: 'Permission denied. Blog can be deleted only by blog author.' })
+    }
   } else {
     res.status(404).end()
   }
