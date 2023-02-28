@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldnNraSIsImlkIjo3LCJpYXQiOjE2Nzc1NzU0Nzd9.9X3IoXefF_wSN-Dl2qshFz0KduwaavCVg3SldSiQqFQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAwN0BNMTYuY29tIiwiaWQiOjE2LCJpYXQiOjE2Nzc1ODU3NzR9.ddEXuz2xzHZO6YXS1sfSBWUIcyTkN8AAMKuGivmNSB8
 
 {
-    "author": "nevski",
+    "author": "James Bond",
     "url": "http://react.react",
-    "title": "Something"
+    "title": "Agents"
 }

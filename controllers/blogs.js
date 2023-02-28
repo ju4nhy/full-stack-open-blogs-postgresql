@@ -56,15 +56,6 @@ blogRouter.get('/:id', blogFinder, async (req, res) => {
   }
 })
 
-/* ORIGINAL WORKED...?   CAN BE DELETED WHEN BELOW POST WORKS
-blogRouter.post('/', blogFinder, async (req, res) => {
-    console.log(req.body)
-    const user = await User.findOne()
-    const blog = await Blog.create({ ...req.body, userId: user.id })
-    return res.json(blog)
-})
-*/
-
 blogRouter.post('/', middleware.tokenExtractor, middleware.userExtractor, async (req, res) => {
     console.log(req.body)
     const user = await User.findByPk(req.decodedToken.id)
@@ -96,27 +87,3 @@ blogRouter.put('/:id', blogFinder, async (req, res) => {
 })
 
 module.exports = blogRouter
-
-   /* ORIGINAL
-    where: {
-      title: {
-        [Op.iLike]: '%' + (req.query.search ? req.query.search : '') + '%'
-      }
-   }*/
-
- /*    
-    where: req.query.search ? {
-     [Op.or]: [
-        {
-          title: {
-            [Op.iLike]: `%${req.query.search}%`
-          }
-        },
-        {
-          author: {
-            [Op.iLike]: `%${req.query.search}%`
-          }
-        }
-      ]
-    } : {}
-  */
