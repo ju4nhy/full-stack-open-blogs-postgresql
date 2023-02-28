@@ -8,6 +8,7 @@ const unknownEndpoint = (req, res) => {
 
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization')
+  
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     try {
       console.log(authorization.substring(7))
