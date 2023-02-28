@@ -1,9 +1,9 @@
-PUT http://localhost:3001/api/blogs/2
+PUT http://localhost:3001/api/blogs/32
 Content-Type: application/json
 
 {
     "author": "juanhy", 
     "url": "http://tba.tba",
     "title": "Test Blog 1",
-    "likes": -1
+    "likes": 2
 }

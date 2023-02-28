@@ -1,4 +1,4 @@
-const router = require('express').Router()
+const userRouter = require('express').Router()
 
 const { User, Blog } = require('../models')
 
@@ -12,7 +12,7 @@ const userFinder = async (req, res, next) => {
   next()
 }
 
-router.get('/', async (req, res) => {
+userRouter.get('/', async (req, res) => {
   const users = await User.findAll({
     include: {
       model: Blog,
@@ -22,16 +22,12 @@ router.get('/', async (req, res) => {
   res.json(users)
 })
 
-router.post('/', async (req, res) => {
- // try {
-    const user = await User.create(req.body)
-    res.json(user)
- // } catch(error) {
-   // return res.status(400).json({ error })
- // }
+userRouter.post('/', async (req, res) => {
+  const user = await User.create(req.body)
+  res.json(user)
 })
 
-router.get('/:id', userFinder, async (req, res) => {
+userRouter.get('/:id', userFinder, async (req, res) => {
   if (req.user) {
     res.json(req.user)
   } else {
@@ -39,7 +35,7 @@ router.get('/:id', userFinder, async (req, res) => {
   }
 })
 
-router.put('/:username', async (req, res) => {
+userRouter.put('/:username', async (req, res) => {
  const user = await User.findOne({
   where: {
     username: req.params.username
@@ -55,7 +51,7 @@ router.put('/:username', async (req, res) => {
  }
 })
 
-router.delete('/:id', userFinder, async (req, res) => {
+userRouter.delete('/:id', userFinder, async (req, res) => {
   if (req.user) {
     await req.user.destroy()
     res.status(204).end()
@@ -64,4 +60,4 @@ router.delete('/:id', userFinder, async (req, res) => {
   }
 })
 
-module.exports = router
+module.exports = userRouter

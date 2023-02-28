@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1YW5oeSIsImlkIjo2LCJpYXQiOjE2Nzc1MTE2MzF9.QjV1SLL0cg318F_jEACBo-nrbkOPYXES9S6mK89HhC4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldnNraSIsImlkIjo3LCJpYXQiOjE2Nzc1NzU0Nzd9.9X3IoXefF_wSN-Dl2qshFz0KduwaavCVg3SldSiQqFQ
 
 {
-    "author": "juanhy",
-    "url": "http://test.test",
-    "title": "Test Blog 3"
+    "author": "nevski",
+    "url": "http://react.react",
+    "title": "Something"
 }
