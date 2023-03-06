@@ -23,7 +23,8 @@ User.init({
     allowNull: false
   },
   passwordHash: {
-    type: DataTypes.TEXT
+    type: DataTypes.TEXT,
+    allowNull: false, // LISÄTTY PERJANTAINA TESTIN VUOKSI
   }
 }, {
   sequelize,

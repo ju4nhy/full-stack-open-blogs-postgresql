@@ -16,6 +16,7 @@ const userFinder = async (req, res, next) => {
 
 userRouter.get('/', async (req, res) => {
   const users = await User.findAll({
+    attributes: { exclude: ['passwordHash'] },
     include: {
       model: Blog,
       attributes: { exclude: ['userId'] }

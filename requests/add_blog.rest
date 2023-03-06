@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAwN0BNMTYuY29tIiwiaWQiOjE2LCJpYXQiOjE2Nzc1ODU3NzR9.ddEXuz2xzHZO6YXS1sfSBWUIcyTkN8AAMKuGivmNSB8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1YW5oeUBqdWFuaHkuY29tIiwiaWQiOjIsImlhdCI6MTY3ODA4ODkwNn0.w-Ssn0g5DVbvRzS5lJMhezaE6TZWPb7jYfTX4GQPiTE
 
 {
-    "author": "James Bond",
-    "url": "http://react.react",
-    "title": "Agents"
+    "author": "juanhy",
+    "url": "http://juanhy.juanhy",
+    "title": "Just a random test blog"
 }
