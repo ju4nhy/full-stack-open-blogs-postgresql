@@ -1,9 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1YW5oeUBqdWFuaHkuY29tIiwiaWQiOjIsImlhdCI6MTY3ODA4ODkwNn0.w-Ssn0g5DVbvRzS5lJMhezaE6TZWPb7jYfTX4GQPiTE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldnNraUBuZXZza2kuY29tIiwiaWQiOjEsImlhdCI6MTY3ODExMDE3MiwiZXhwIjoxNjc4MTEzNzcyfQ.3oFxNTX0Qx_5zTRZlswf3k7sKyVgpWurLFx7D4wscnU
 
 {
-    "author": "juanhy",
-    "url": "http://juanhy.juanhy",
-    "title": "Just a random test blog"
+    "author": "nevski",
+    "url": "http://nevski.nevski",
+    "title": "Igor Nevski",
+    "year": 2023
 }

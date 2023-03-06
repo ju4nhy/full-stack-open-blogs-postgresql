@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users/test@test.com/disabled
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1YW5oeUBqdWFuaHkuY29tIiwiaWQiOjIsImlhdCI6MTY3ODEwMTI5M30.fot_GpWWXd0QyOqNiQfp0igLpw_rM-Zo1d5yAugUSRs
+
+{
+    "disabled": false
+}

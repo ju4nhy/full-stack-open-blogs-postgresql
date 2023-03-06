@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const { User } = require('../models')
 
 const unknownEndpoint = (req, res) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+  res.status(404).send({ error: 'Unknown endpoint' })
 }
 
 const tokenExtractor = (req, res, next) => {
@@ -15,10 +15,10 @@ const tokenExtractor = (req, res, next) => {
       req.decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
     } catch (error){
       console.log(error)
-      return res.status(401).json({ error: 'token invalid' })
+      return res.status(401).json({ error: 'Token invalid' })
     }
   } else {
-    return res.status(401).json({ error: 'token missing' })
+    return res.status(401).json({ error: 'Token missing' })
   }
   next()
 }
@@ -32,7 +32,7 @@ const userExtractor = async (req, res, next) => {
     req.user = user
   } else {
     req.user = null
-    return res.status(401).json({ error: 'TESTING TESTING TESTING' })
+    return res.status(401).json({ error: 'Unauthorized request. Please provide a valid token.' })
   }
   next()
 }
@@ -50,5 +50,5 @@ module.exports = {
     unknownEndpoint,
     errorHandler,
     tokenExtractor,
-    userExtractor
+    userExtractor,
 }

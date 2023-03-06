@@ -28,7 +28,14 @@ Blog.init({
       min: 0,
       isInt: true
     }
-  }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    validate: {
+      min: 1991,
+      max: 2023,
+    }
+  },
 }, {
   sequelize,
   underscored: true,

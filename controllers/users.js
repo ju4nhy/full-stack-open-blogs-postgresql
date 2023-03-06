@@ -1,6 +1,7 @@
 
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
+const middleware = require('../util/middleware')
 
 const { User, Blog } = require('../models')
 
@@ -11,6 +12,14 @@ const userFinder = async (req, res, next) => {
       attributes: { exclude: ['userId'] }
     }
   })
+  next()
+}
+
+const isAdmin = async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  if (!user.admin) {
+    return res.status(401).json({ error: 'Operation not permitted. Only admin is allowed to enable and disable users.' })
+  }
   next()
 }
 
@@ -61,6 +70,24 @@ userRouter.put('/:username', async (req, res) => {
  } else {
    res.status(404).end();
  }
+})
+
+userRouter.put('/:username/disabled', middleware.tokenExtractor, isAdmin, async (req, res) => {
+  console.log('REQUEST BODYYY', req.body)
+  
+  const user = await User.findOne({ 
+    where: {
+      username: req.params.username
+    }
+  })
+
+  if (user) {
+    user.disabled = req.body.disabled
+    await user.save()
+    res.json({ disabled: user.disabled })
+  } else {
+    res.status(404).end()
+  }
 })
 
 userRouter.delete('/:id', userFinder, async (req, res) => {
