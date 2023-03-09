@@ -3,14 +3,24 @@ const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const middleware = require('../util/middleware')
 
-const { User, Blog } = require('../models')
+const { User, Blog, ReadingList } = require('../models')
 
 const userFinder = async (req, res, next) => {
   req.user = await User.findByPk(req.params.id, {
-    include: {
+    attributes: { exclude: ['passwordHash', 'admin', 'createdAt', 'updatedAt'] },
+    include: [{
       model: Blog,
       attributes: { exclude: ['userId'] }
-    }
+    },
+    {
+      model: Blog,
+      as: "readings",
+      attributes: { exclude: ["userId", "createdAt", "updatedAt"] },
+      through: {
+        attributes: ["id", "read"],
+      },
+    },
+    ]
   })
   next()
 }
@@ -48,6 +58,7 @@ userRouter.post('/', async (req, res) => {
   res.json(user)
 })
 
+
 userRouter.get('/:id', userFinder, async (req, res) => {
   if (req.user) {
     res.json(req.user)
@@ -55,6 +66,35 @@ userRouter.get('/:id', userFinder, async (req, res) => {
     res.status(404).end()
   }
 })
+
+
+
+/*
+userRouter.get('/:id', async (req, res) => {
+  req.user = await User.findByPk(req.params.id, { 
+    attributes: { exclude: [''] } ,
+    include:[{
+        model: Blog,
+        attributes: { exclude: ['userId'] }
+      },
+      {
+        model: Blog,
+        as: 'usermarked',
+        attributes: { exclude: ['userId']},
+        through: {
+          attributes: []
+        },
+      },
+    ]
+  })
+
+  if (req.user) {
+    res.json(req.user)
+  } else {
+    res.status(404).end()
+  }
+})
+*/
 
 userRouter.put('/:username', async (req, res) => {
  const user = await User.findOne({
@@ -100,3 +140,38 @@ userRouter.delete('/:id', userFinder, async (req, res) => {
 })
 
 module.exports = userRouter
+
+/*
+const userFinder = async (req, res, next) => {
+  req.user = await User.findByPk(req.params.id, {
+    attributes: { exclude: [''] },
+    include: [{
+      model: Blog,
+      attributes: { exclude: ['userId'] }
+    },
+    {
+      model: Blog,
+      as: 'usermarked',
+      attributes: { exclude: ['userId']},
+      through: {
+        attributes: []
+      },
+    }
+  ],
+ })
+  next()
+}
+*/
+
+/* ORIGINAL
+const userFinder = async (req, res, next) => {
+  req.user = await User.findByPk(req.params.id, {
+    include: {
+      model: Blog,
+      attributes: { exclude: ['userId'] }
+    }
+  })
+  next()
+}
+
+*/
