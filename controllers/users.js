@@ -2,10 +2,27 @@
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const middleware = require('../util/middleware')
+const { Op } = require('sequelize')
 
 const { User, Blog, ReadingList } = require('../models')
 
+const isAdmin = async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  if (!user.admin) {
+    return res.status(401).json({ error: 'Operation not permitted. Only admin is allowed to enable and disable users.' })
+  }
+  next()
+}
+
 const userFinder = async (req, res, next) => {
+  let where = {}
+
+  if (req.query.read === "true") {
+    where = { read: true }
+  } else if (req.query.read === "false") {
+    where = { read: false }
+  }
+
   req.user = await User.findByPk(req.params.id, {
     attributes: { exclude: ['passwordHash', 'admin', 'createdAt', 'updatedAt'] },
     include: [{
@@ -18,18 +35,11 @@ const userFinder = async (req, res, next) => {
       attributes: { exclude: ["userId", "createdAt", "updatedAt"] },
       through: {
         attributes: ["id", "read"],
+        where
       },
     },
     ]
   })
-  next()
-}
-
-const isAdmin = async (req, res, next) => {
-  const user = await User.findByPk(req.decodedToken.id)
-  if (!user.admin) {
-    return res.status(401).json({ error: 'Operation not permitted. Only admin is allowed to enable and disable users.' })
-  }
   next()
 }
 
@@ -44,6 +54,15 @@ userRouter.get('/', async (req, res) => {
   res.json(users)
 })
 
+
+userRouter.get('/:id', userFinder, async (req, res) => {
+  if (req.user) {
+    res.json(req.user)
+  } else {
+    res.status(404).end()
+  }
+})
+
 userRouter.post('/', async (req, res) => {
   const { username, name, password } = req.body
   const saltRounds = 10
@@ -55,15 +74,6 @@ userRouter.post('/', async (req, res) => {
     passwordHash
   })
   res.json(user)
-})
-
-
-userRouter.get('/:id', userFinder, async (req, res) => {
-  if (req.user) {
-    res.json(req.user)
-  } else {
-    res.status(404).end()
-  }
 })
 
 userRouter.put('/:username', async (req, res) => {

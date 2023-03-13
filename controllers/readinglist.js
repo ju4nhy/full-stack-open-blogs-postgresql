@@ -28,7 +28,7 @@ readinglistRouter.put('/:id', middleware.tokenExtractor, middleware.userExtracto
         await readingListEntry.save()
         res.json({ read: readingListEntry.read })
       } else {
-        res.status(401).json({ error: 'Permission denied. Readinglist can be edited only by author' })
+        res.status(401).json({ error: 'Permission denied. Readinglist can be edited only by owner' })
       }
     } else {
         res.status(404).end()
