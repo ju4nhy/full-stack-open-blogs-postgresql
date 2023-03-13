@@ -49,7 +49,6 @@ userRouter.post('/', async (req, res) => {
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 
-  //const user = await User.create(req.body)
   const user = await User.create({
     username,
     name,
@@ -66,35 +65,6 @@ userRouter.get('/:id', userFinder, async (req, res) => {
     res.status(404).end()
   }
 })
-
-
-
-/*
-userRouter.get('/:id', async (req, res) => {
-  req.user = await User.findByPk(req.params.id, { 
-    attributes: { exclude: [''] } ,
-    include:[{
-        model: Blog,
-        attributes: { exclude: ['userId'] }
-      },
-      {
-        model: Blog,
-        as: 'usermarked',
-        attributes: { exclude: ['userId']},
-        through: {
-          attributes: []
-        },
-      },
-    ]
-  })
-
-  if (req.user) {
-    res.json(req.user)
-  } else {
-    res.status(404).end()
-  }
-})
-*/
 
 userRouter.put('/:username', async (req, res) => {
  const user = await User.findOne({
@@ -113,8 +83,6 @@ userRouter.put('/:username', async (req, res) => {
 })
 
 userRouter.put('/:username/disabled', middleware.tokenExtractor, isAdmin, async (req, res) => {
-  console.log('REQUEST BODYYY', req.body)
-  
   const user = await User.findOne({ 
     where: {
       username: req.params.username
@@ -140,38 +108,3 @@ userRouter.delete('/:id', userFinder, async (req, res) => {
 })
 
 module.exports = userRouter
-
-/*
-const userFinder = async (req, res, next) => {
-  req.user = await User.findByPk(req.params.id, {
-    attributes: { exclude: [''] },
-    include: [{
-      model: Blog,
-      attributes: { exclude: ['userId'] }
-    },
-    {
-      model: Blog,
-      as: 'usermarked',
-      attributes: { exclude: ['userId']},
-      through: {
-        attributes: []
-      },
-    }
-  ],
- })
-  next()
-}
-*/
-
-/* ORIGINAL
-const userFinder = async (req, res, next) => {
-  req.user = await User.findByPk(req.params.id, {
-    include: {
-      model: Blog,
-      attributes: { exclude: ['userId'] }
-    }
-  })
-  next()
-}
-
-*/

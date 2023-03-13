@@ -71,10 +71,10 @@ module.exports = {
         defaultValue: DataTypes.NOW
       }
     })
-    await queryInterface.addColumn('blogs', 'user_id', { // blog or blogs?
+    await queryInterface.addColumn('blogs', 'user_id', { 
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'users', key: 'id' }, // users or user?
+      references: { model: 'users', key: 'id' }, 
     })
   },
   down: async ({ context: queryInterface }) => {

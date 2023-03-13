@@ -1,5 +1,6 @@
 const readinglistRouter = require('express').Router()
-const { User, Blog, ReadingList } = require('../models')
+const middleware = require('../util/middleware')
+const { ReadingList } = require('../models')
 
 readinglistRouter.get('/', async (req, res) => {
     const readinglists = await ReadingList.findAll({})
@@ -7,18 +8,31 @@ readinglistRouter.get('/', async (req, res) => {
 })
 
 readinglistRouter.post('/', async (req, res) => {
-    console.log(req.body)
-    //const { blogId, userId } = req.body
-
-    const readingListItem = await ReadingList.create({
+    const readingList = await ReadingList.create({
         blogId: req.body.blog_id,
         userId: req.body.user_id
     })
-    res.json(readingListItem)
+    res.json(readingList)
 })
 
-readinglistRouter.put('/', async (req, res) => {
-    console.log('test')
+readinglistRouter.put('/:id', middleware.tokenExtractor, middleware.userExtractor, async (req, res) => {
+    if (!req.decodedToken || !req.decodedToken.id) {
+        return res.status(401).json({ error: 'Token missing or invalid' })
+    }
+
+    const readingListEntry = await ReadingList.findByPk(req.params.id)
+
+    if (readingListEntry) {
+      if (req.decodedToken.id === readingListEntry.userId) {
+        readingListEntry.read = req.body.read
+        await readingListEntry.save()
+        res.json({ read: readingListEntry.read })
+      } else {
+        res.status(401).json({ error: 'Permission denied. Readinglist can be edited only by author' })
+      }
+    } else {
+        res.status(404).end()
+    }
 })
 
 module.exports = readinglistRouter

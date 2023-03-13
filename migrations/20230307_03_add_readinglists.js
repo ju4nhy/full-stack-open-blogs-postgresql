@@ -30,10 +30,3 @@ module.exports = {
     await queryInterface.dropTable('reading_lists')
   },
 }
-
-
-
-
-
-
-    
