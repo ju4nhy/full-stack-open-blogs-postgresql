@@ -4,19 +4,6 @@ const { Umzug, SequelizeStorage } = require('umzug')
 
 const sequelize = new Sequelize(DATABASE_URL)
 
-/* 
-FOR HEROKU:
-
-const sequelize = new Sequelize(DATABASE_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  },
-}); 
-*/
-
 const connectToDatabase = async () => {
   try {
     await sequelize.authenticate()
@@ -53,6 +40,5 @@ const rollbackMigration = async () => {
   const migrator = new Umzug(migrationConf)
   await migrator.down()
 }
-
 
 module.exports = { connectToDatabase, sequelize, rollbackMigration }

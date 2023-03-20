@@ -2,7 +2,6 @@
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const middleware = require('../util/middleware')
-const { Op } = require('sequelize')
 
 const { User, Blog, ReadingList } = require('../models')
 

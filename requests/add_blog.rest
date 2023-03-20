@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldnNraUBuZXZza2kuY29tIiwiaWQiOjEsImlhdCI6MTY3ODExMDE3MiwiZXhwIjoxNjc4MTEzNzcyfQ.3oFxNTX0Qx_5zTRZlswf3k7sKyVgpWurLFx7D4wscnU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAdGVzdC5jb20iLCJpZCI6NCwiaWF0IjoxNjc5MzAwMTUzfQ.LlpErMBG3kAjEIGtYnzpGThOSt9G3EyLjfq9y9ke_Ck
 
 {
-    "author": "nevski",
-    "url": "http://nevski.nevski",
-    "title": "Igor Nevski",
+    "author": "TEST",
+    "url": "http://test",
+    "title": "Just a test",
     "year": 2023
 }
